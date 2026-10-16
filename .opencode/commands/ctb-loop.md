@@ -32,7 +32,7 @@ subtask: false
 {"subject_ids": ["<题号1>", "<题号2>"], "mode": "...", "max_rounds": N, "profile": "...", "username": "...或 null"}
 ```
 
-loop 按顺序逐题处理，一题结算后才开始下一题。Command 不复制单题流程，不创建子任务，不改动模型设置。
+loop 按顺序逐题处理，一题结算后才开始下一题。Command 不复制单题流程，不创建子任务，不改动模型设置。按子系统启动 subagent 只发生在 e2e-test 内部，不由本 Command 启动。
 
 ## 展示
 

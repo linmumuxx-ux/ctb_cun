@@ -1,5 +1,5 @@
 # ctb_cun
 
-本分支引入公开仓库 <https://github.com/linxuyiyi/ctb_cun> 的 CTB 技能、命令和校验夹具。入口是 `.opencode/skills/e2e-test/SKILL.md` 与 `.opencode/skills/loop/SKILL.md`。
+CTB 技能在 `.opencode/skills/`。`e2e-test` 先读题并按章节识别子系统，再设计用例，合并为 `testaw.py`、`udpunittest.py` 和 `.ctb/design.json`。`loop` 与 `/ctb-exercise`、`/ctb-loop` 的调用参数不变。
 
-该公开仓库中没有《城邦远征》赛题，也没有城邦建设、军队组建、领地争夺、积分结算四个子系统的规则、接口或公式。
+建设、组军、争夺、结算只写在子系统提示词里，作为无界面多子系统题型的易错点例子。仓库没有某一道具体题目的规则文档。

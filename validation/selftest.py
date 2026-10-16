@@ -52,7 +52,8 @@ def write(path, obj):
 
 
 def py38_syntax():
-    for p in (E2E, LEDGER):
+    paths = [E2E, LEDGER, os.path.join(ROOT, ".opencode/skills/e2e-test/scripts/segment_subject.py")]
+    for p in paths:
         try:
             ast.parse(open(p, encoding="utf-8").read(), p, feature_version=(3, 8))
             check("py38 语法: " + os.path.basename(p), True)
@@ -79,8 +80,43 @@ def make_design(val, hyps, increments=None):
     }
 
 
+def contract_and_segment():
+    skill = open(os.path.join(ROOT, ".opencode/skills/e2e-test/SKILL.md"), encoding="utf-8").read()
+    loop = open(os.path.join(ROOT, ".opencode/skills/loop/SKILL.md"), encoding="utf-8").read()
+    template = open(os.path.join(ROOT, ".opencode/skills/e2e-test/subagents/subsystem.md"), encoding="utf-8").read()
+    exercise = open(os.path.join(ROOT, ".opencode/commands/ctb-exercise.md"), encoding="utf-8").read()
+    seg_path = os.path.join(ROOT, ".opencode/skills/e2e-test/scripts/segment_subject.py")
+    spec = open(os.path.join(FIXTURE, "系统需求规格说明书.md"), encoding="utf-8").read()
+    for token in ("subject_root", "profile", "mode", "round_target", "work_order",
+                  "testaw.py", "udpunittest.py", ".ctb/design.json", "e2e_evidence.py",
+                  "subagents/subsystem.md", "segment_subject.py", "delivery"):
+        check("e2e 契约含 " + token, token in skill)
+    for token in ("subject_root", "profile", "mode", "round_target", "work_order", "delivery"):
+        check("loop 仍传入 " + token, token in loop)
+    check("loop 不再禁止 e2e 内部 subagent", "不创建子 Agent" not in loop and "subagent" in loop)
+    check("exercise 仍把设计交给 e2e-test", "e2e-test 内部" in exercise and "加载 loop" in exercise)
+    for token in ("可达", "激发", "传播", "等价类", "边界值", "非法输入", "状态迁移",
+                  "判定表", "取整", "守恒", "幂等", "错误码", "测试规格说明书"):
+        check("子系统模板含 " + token, token in template)
+    check("模板把建设/组军/争夺/结算标成示例", "不是某道固定题目" in template)
+    sys.path.insert(0, os.path.dirname(seg_path))
+    import segment_subject as seg
+    one = seg.segment_text(spec)
+    check("900001 无业务二级标题 → 单模块", len(one) == 1 and one[0]["single"] is True, one)
+    walked = seg.segment_subject(FIXTURE)
+    check("900001 目录切分与正文一致", walked == one, walked)
+    multi = "# 题\n## 建设\n产出\n## 组军\n消耗\n## 争夺\n归属\n## 结算\n计分\n"
+    four = seg.segment_text(multi)
+    check("四个二级章节 → 四个子系统", len(four) == 4 and four[0]["single"] is False, four)
+    generic = "# 题\n## 命令\nDEP\n## 错误码\nE001\n"
+    check("只有通用标题 → 仍是单模块", seg.segment_text(generic)[0]["single"] is True)
+    code, out = run(seg_path, FIXTURE)
+    check("segment_subject.py 可执行且与函数一致", code == 0 and out == one, out)
+
+
 def main():
     py38_syntax()
+    contract_and_segment()
     shutil.rmtree(WORK, ignore_errors=True)
     shutil.copytree(FIXTURE, SUBJ)
     os.makedirs(os.path.join(SUBJ, ".ctb"))

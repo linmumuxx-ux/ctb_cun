@@ -34,7 +34,7 @@ subtask: false
 {"subject_ids": ["<题号>"], "mode": "...", "max_rounds": N, "profile": "...", "username": "...或 null"}
 ```
 
-不创建子任务，不改动当前模型设置，不自行取题、设计、提交或计算统计。
+不创建子任务，不改动当前模型设置，不自行取题、设计、提交或计算统计。按子系统启动 subagent 只发生在 e2e-test 内部，不由本 Command 启动。
 
 ## 展示
 
