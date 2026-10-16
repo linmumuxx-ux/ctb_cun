@@ -7,7 +7,7 @@
 | 阶段 | 必读 | 产出写入 design.json |
 | --- | --- | --- |
 | 首次接题 | §1 §2 §3 | `contract`、`mechanisms`、`required_techniques` |
-| 推导测试 | §4 §5 §6，题目规定了技术时加 §7，有质量要求时加 §8 | `hypotheses`、`tests` |
+| 推导测试 | §4 §5 §6，题目规定了技术时加 §7，有质量要求时加 §8；无界面多子系统逻辑题加 `logic-game-methods.md` | `hypotheses`、`tests` |
 | 交付前自检 | §9 | `audit`、`gaps`、`delivery` |
 | 收到反馈后 | §10 | `increments`、更新 `hypotheses` |
 | 需要读 JAR 时 | §11 | `reference_analysis` |

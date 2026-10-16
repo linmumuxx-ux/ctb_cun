@@ -99,6 +99,12 @@ def contract_and_segment():
                   "判定表", "取整", "守恒", "幂等", "错误码", "测试规格说明书"):
         check("子系统模板含 " + token, token in template)
     check("模板把建设/组军/争夺/结算标成示例", "不是某道固定题目" in template)
+    methods = open(os.path.join(ROOT, ".opencode/skills/e2e-test/references/logic-game-methods.md"),
+                   encoding="utf-8").read()
+    check("模板引用逻辑题方法", "references/logic-game-methods.md" in template and "M1" in template)
+    for token in ("M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11",
+                  "何时用", "怎么推导", "打中的缺陷", "蜕变", "不变量随机序列", "空表"):
+        check("逻辑题方法含 " + token, token in methods)
     sys.path.insert(0, os.path.dirname(seg_path))
     import segment_subject as seg
     one = seg.segment_text(spec)

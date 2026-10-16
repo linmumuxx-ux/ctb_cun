@@ -20,7 +20,7 @@
 
 `mechanisms`、`hypotheses` 与 `references/design-playbook.md` §3、§4 的字段相同。每条假设包含 `target`、`operator`、`priority`、`fault`、`reach`、`infect`、`propagate`、`basis`。`basis` 只用 `public_spec` 或 `reference_observed`。
 
-`case_sketches` 每条只含：`id`、`title`、`pre`、`steps`、`expect`、`method`、`hypotheses`、`priority`。`method` 取下面八种之一。一条草稿只钉住一个判定点。`steps` 写成可落到 AW 调用的动作和参数，不写界面操作。
+`case_sketches` 每条只含：`id`、`title`、`pre`、`steps`、`expect`、`method`、`hypotheses`、`priority`。一条草稿只钉住一个判定点。`steps` 写成可落到 AW 调用的动作和参数，不写界面操作。`method` 填下面八种手法之一；题面命中 `references/logic-game-methods.md` 的适用条件时，改为填该节编号（`M1`–`M11`），并按该节推导。
 
 题面没有给出的阈值、公式、错误码放进 `gaps`，不编成用例。
 
@@ -28,7 +28,7 @@
 
 1. **抽规则。** 从摘录列出输入、守卫、状态写、错误码、公式、状态和它们的读写。每个响应码对应一个守卫。失败路径写明哪些状态必须保持。
 2. **故障假设。** 沿用手册主线：机制元素 → 故障算子 → 可达（reach）→ 激发（infect）→ 传播（propagate）。算子用手册 §4 的名称。核心效果、每个守卫的 `G-DROP`/`G-BND`、拒绝后仍写入的 `E-FAIL` 标 P0。`profile` 的广度按 e2e-test 技能中的 Profile 表执行，不降低断言要求。
-3. **选区分值。** 用下面的手法为假设选数据，并在 `method` 里标明主手法。先做手册 §5.1 的两错检验：数据要让常见错误实现和正确实现的输出不同。
+3. **选区分值。** 先做手册 §5.1 的两错检验：数据要让常见错误实现和正确实现的输出不同。无界面的通用手法用下面的表。题面涉及资源流向、tick、战斗公式、状态机、规则叠加、多方竞争、排名、配置表或模块之间的数据传递时，先读 `references/logic-game-methods.md`，按其中「何时用」选择 `M1`–`M11`，再按该节的「怎么推导」写草稿，用「打中的典型缺陷」核对这条假设确实能分开错误实现。建设、组军、争夺、结算只是该文件里的例子。
 4. **增量轮。** `work_order` 非空时，优先补本子系统里仍是 MISS 或模型缺口的机制，已命中用例不改意图。拿不出新假设时 `hypotheses` 为空，并在 `gaps` 写 `no_new_hypothesis`。
 
 ## 无界面逻辑手法
