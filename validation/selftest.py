@@ -88,8 +88,7 @@ def contract_and_segment():
     seg_path = os.path.join(ROOT, ".opencode/skills/e2e-test/scripts/segment_subject.py")
     spec = open(os.path.join(FIXTURE, "系统需求规格说明书.md"), encoding="utf-8").read()
     for token in ("subject_root", "profile", "mode", "round_target", "work_order",
-                  "testaw.py", "udpunittest.py", ".ctb/design.json", "e2e_evidence.py",
-                  "subagents/subsystem.md", "segment_subject.py", "delivery"):
+                  "testaw.py", "udpunittest.py", ".ctb/design.json", "delivery"):
         check("e2e 契约含 " + token, token in skill)
     for token in ("subject_root", "profile", "mode", "round_target", "work_order", "delivery"):
         check("loop 仍传入 " + token, token in loop)
@@ -97,7 +96,8 @@ def contract_and_segment():
     check("exercise 仍把设计交给 e2e-test", "e2e-test 内部" in exercise and "加载 loop" in exercise)
     check("流程为串行且禁止并发", "串行" in skill and "禁止并发" in skill and "并行" not in skill)
     check("交互用例在子系统全部完成之后", "全部子系统" in skill and "交互" in skill)
-    check("模板要求尽量多写用例并自行验证", "尽量多" in template and "e2e_evidence.py" in template)
+    check("技能不把切分和验证脚本写死", "segment_subject.py" not in skill and "e2e_evidence.py" not in skill)
+    check("模板要求尽量多写用例且不写死验证脚本", "尽量多" in template and "e2e_evidence.py" not in template)
     check("不再引用逻辑题方法长文",
           "logic-game-methods" not in skill and "logic-game-methods" not in template
           and not os.path.exists(os.path.join(ROOT, ".opencode/skills/e2e-test/references/logic-game-methods.md")))
