@@ -1,5 +1,5 @@
 # ctb_cun
 
-测试设计技能在 [`skills/测试设计/SKILL.md`](skills/测试设计/SKILL.md)。
+本分支引入公开仓库 <https://github.com/linxuyiyi/ctb_cun> 的 CTB 技能、命令和校验夹具。入口是 `.opencode/skills/e2e-test/SKILL.md` 与 `.opencode/skills/loop/SKILL.md`。
 
-用于无界面的《城邦远征》：城邦建设子系统、军队组建系统、领地争夺子系统、积分结算系统。编排器先读赛题，再按 [`skills/测试设计/subagents/`](skills/测试设计/subagents/) 中的提示词并行设计用例，最后去重并补跨子系统联动用例。交付物是用例表，不写测试规格说明书。
+该公开仓库中没有《城邦远征》赛题，也没有城邦建设、军队组建、领地争夺、积分结算四个子系统的规则、接口或公式。
