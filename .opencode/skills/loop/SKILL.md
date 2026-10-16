@@ -57,7 +57,7 @@ L = python .opencode/skills/loop/scripts/ctb_ledger.py
 ### P2 设计（调用 e2e-test）
 在当前上下文加载 `.opencode/skills/e2e-test/SKILL.md`，传入 `subject_root, profile, mode, round_target=<历史轮数+1>, work_order`（首轮为空）。等它返回 `delivery`。
 
-Loop 不把 e2e-test 再包进子 Agent，调用参数和返回的 `delivery` 保持不变。e2e-test 在内部按题目子系统启动 subagent；题面只有一个模块时，它在当前 Agent 里完成，不另起 subagent。
+Loop 不把 e2e-test 再包进子 Agent，调用参数和返回的 `delivery` 保持不变。e2e-test 在内部按子系统串行启动 subagent，一次只有一个，禁止并发。
 
 ### P3 门禁
 `L gate`。台账会核对：`delivery.ready`；验证状态和摘要与当前文件一致；执行 ID 与收集 ID 一致且无失败/错误/跳过；重新收集的 ID 与验证记录一致；P0 假设已闭合；`answer_origin` 合法；增量轮存在 `increments[for_round]`；与上一有效轮不是同一版本；历史命中用例未被无理由删除。

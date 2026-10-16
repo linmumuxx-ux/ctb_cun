@@ -36,7 +36,7 @@
 ```text
 Command ──{subject_ids[str], mode, max_rounds, profile, username|null}──▶ loop
 loop ──{subject_root, profile, mode, round_target, work_order|null}──▶ e2e-test
-e2e-test 内部可按子系统并行 subagent；单模块不另起 subagent。对外仍只返回 delivery
+e2e-test 内部按子系统串行启动 subagent，禁止并发。对外仍只返回 delivery
 e2e-test ──写 design.json（delivery / validation / increments）──▶ loop 只读
 loop ──写 session.json（仅经 ctb_ledger.py）──▶ e2e-test 只读 work_order
 loop ──L summary JSON──▶ Command 展示

@@ -1,13 +1,13 @@
 # CTB 判别式测试设计手册
 
-本手册是判别方法的知识入口。主线只有一条：**每条 testcase 存在的理由，是让某个具体的错误实现失败。** 技术名称、覆盖档位、质量分类都服务于这条主线，不能替代它。子系统 subagent 按 `subagents/subsystem.md` 使用这些方法，不另写测试规格。
+本手册保留判别思路，不是当前流程的必读清单。流程以 `SKILL.md` 和 `subagents/subsystem.md` 为准，不另写测试规格。
 
 ## 0. 何时读哪一节
 
 | 阶段 | 必读 | 产出写入 design.json |
 | --- | --- | --- |
 | 首次接题 | §1 §2 §3 | `contract`、`mechanisms`、`required_techniques` |
-| 推导测试 | §4 §5 §6，题目规定了技术时加 §7，有质量要求时加 §8；无界面多子系统逻辑题加 `logic-game-methods.md` | `hypotheses`、`tests` |
+| 推导测试 | §4 §5 §6，题目规定了技术时加 §7，有质量要求时加 §8 | `hypotheses`、`tests` |
 | 交付前自检 | §9 | `audit`、`gaps`、`delivery` |
 | 收到反馈后 | §10 | `increments`、更新 `hypotheses` |
 | 需要读 JAR 时 | §11 | `reference_analysis` |

@@ -95,16 +95,12 @@ def contract_and_segment():
         check("loop 仍传入 " + token, token in loop)
     check("loop 不再禁止 e2e 内部 subagent", "不创建子 Agent" not in loop and "subagent" in loop)
     check("exercise 仍把设计交给 e2e-test", "e2e-test 内部" in exercise and "加载 loop" in exercise)
-    for token in ("可达", "激发", "传播", "等价类", "边界值", "非法输入", "状态迁移",
-                  "判定表", "取整", "守恒", "幂等", "错误码", "测试规格说明书"):
-        check("子系统模板含 " + token, token in template)
-    check("模板把建设/组军/争夺/结算标成示例", "不是某道固定题目" in template)
-    methods = open(os.path.join(ROOT, ".opencode/skills/e2e-test/references/logic-game-methods.md"),
-                   encoding="utf-8").read()
-    check("模板引用逻辑题方法", "references/logic-game-methods.md" in template and "M1" in template)
-    for token in ("M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11",
-                  "何时用", "怎么推导", "打中的缺陷", "蜕变", "不变量随机序列", "空表"):
-        check("逻辑题方法含 " + token, token in methods)
+    check("流程为串行且禁止并发", "串行" in skill and "禁止并发" in skill and "并行" not in skill)
+    check("交互用例在子系统全部完成之后", "全部子系统" in skill and "交互" in skill)
+    check("模板要求尽量多写用例并自行验证", "尽量多" in template and "e2e_evidence.py" in template)
+    check("不再引用逻辑题方法长文",
+          "logic-game-methods" not in skill and "logic-game-methods" not in template
+          and not os.path.exists(os.path.join(ROOT, ".opencode/skills/e2e-test/references/logic-game-methods.md")))
     sys.path.insert(0, os.path.dirname(seg_path))
     import segment_subject as seg
     one = seg.segment_text(spec)
